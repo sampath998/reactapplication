@@ -12,3 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: building
+        run: |
+          cd /home/sampathkumar/Scripts
+          bash react-test-app.sh
