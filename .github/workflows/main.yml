@@ -16,7 +16,7 @@ jobs:
       - name: Notify Start
         run: |
           cd /home/icanio-10001/Scripts
-          bash notify-start.sh "${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}"  "${{ github.ref_name }}"
+          bash notify-start.sh "${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}" "${{ github.ref_name }}"
 
       - name: Build and Run Application
         run: |
@@ -27,10 +27,10 @@ jobs:
         if: success()
         run: |
           cd /home/icanio-10001/Scripts
-          bash notify-success.sh "${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}"  "${{ github.ref_name }}"
+          bash notify-success.sh "${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}" "${{ github.ref_name }}"
 
       - name: Notify Failure
         if: failure()
         run: |
           cd /home/icanio-10001/Scripts
-          bash notify-failure.sh "${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}"  "${{ github.ref_name }}"
+          bash notify-failure.sh "${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}" "${{ github.ref_name }}"
