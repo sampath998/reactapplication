@@ -13,7 +13,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: building
+      - name: Notify Google Chat - Workflow Started
+        uses: wzieba/google-chat-notifier@v1
+        with:
+          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+          message: 'CI Workflow started for branch ${{ github.ref }}'
+
+      - name: Build and Run Application
         run: |
           cd /home/icanio-10001/Scripts
           bash startreact.sh
+
+      - name: Notify Google Chat - Workflow Success
+        if: success()
+        uses: wzieba/google-chat-notifier@v1
+        with:
+          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+          message: 'CI Workflow succeeded for branch ${{ github.ref }}'
+
+      - name: Notify Google Chat - Workflow Failure
+        if: failure()
+        uses: wzieba/google-chat-notifier@v1
+        with:
+          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+          message: 'CI Workflow failed for branch ${{ github.ref }}'
