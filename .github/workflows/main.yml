@@ -15,5 +15,5 @@ jobs:
 
       - name: building
         run: |
-          cd /home/sampathkumar/Scripts
-          bash react-test-app.sh
+          cd /home/icanio-10001/Scripts
+          bash startreact.sh
