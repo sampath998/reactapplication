@@ -12,22 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Notify Google Chat - Workflow Started
-        run: |
-          curl -X POST -H 'Content-Type: application/json' -d '{"text": "CI Workflow started for branch ${{ github.ref }}"}' ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+        
 
       - name: Build and Run Application
         run: |
           cd /home/icanio-10001/Scripts
           bash startreact.sh
-
-      - name: Notify Google Chat - Workflow Success
-        if: success()
-        run: |
-          curl -X POST -H 'Content-Type: application/json' -d '{"text": "CI Workflow succeeded for branch ${{ github.ref }}"}' ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
-
-      - name: Notify Google Chat - Workflow Failure
-        if: failure()
-        run: |
-          curl -X POST -H 'Content-Type: application/json' -d '{"text": "CI Workflow failed for branch ${{ github.ref }}"}' ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
