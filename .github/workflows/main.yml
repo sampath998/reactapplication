@@ -14,10 +14,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Notify Google Chat - Workflow Started
-        uses: wzieba/google-chat-notifier@v1
-        with:
-          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
-          message: 'CI Workflow started for branch ${{ github.ref }}'
+        run: |
+          curl -X POST -H 'Content-Type: application/json' -d '{"text": "CI Workflow started for branch ${{ github.ref }}"}' ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
 
       - name: Build and Run Application
         run: |
@@ -26,14 +24,10 @@ jobs:
 
       - name: Notify Google Chat - Workflow Success
         if: success()
-        uses: wzieba/google-chat-notifier@v1
-        with:
-          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
-          message: 'CI Workflow succeeded for branch ${{ github.ref }}'
+        run: |
+          curl -X POST -H 'Content-Type: application/json' -d '{"text": "CI Workflow succeeded for branch ${{ github.ref }}"}' ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
 
       - name: Notify Google Chat - Workflow Failure
         if: failure()
-        uses: wzieba/google-chat-notifier@v1
-        with:
-          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
-          message: 'CI Workflow failed for branch ${{ github.ref }}'
+        run: |
+          curl -X POST -H 'Content-Type: application/json' -d '{"text": "CI Workflow failed for branch ${{ github.ref }}"}' ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
