@@ -15,22 +15,22 @@ jobs:
 
       - name: Notify Start
         run: |
-          cd /home/icanio-10001/Scripts
+          cd /home/icanio-10075/Icanio/Scripts
           bash notify-start.sh "${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}" "${{ github.ref_name }}" "${{ github.actor }}" "${{ github.event.head_commit.message }}"
 
       - name: Build and Run Application
         run: |
-          cd /home/icanio-10001/Scripts
+          cd /home/icanio-10075/Icanio/Scripts
           bash startreact.sh
 
       - name: Notify Success
         if: success()
         run: |
-          cd /home/icanio-10001/Scripts
+          cd /home/icanio-10075/Icanio/Scripts
           bash notify-success.sh "${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}" "${{ github.ref_name }}" "${{ github.actor }}" "${{ github.event.head_commit.message }}"
 
       - name: Notify Failure
         if: failure()
         run: |
-          cd /home/icanio-10001/Scripts
+          cd /home/icanio-10075/Icanio/Scripts
           bash notify-failure.sh "${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}" "${{ github.ref_name }}" "${{ github.actor }}" "${{ github.event.head_commit.message }}"
